@@ -1,5 +1,18 @@
 <%- include('header') %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <%- include('components/sidebar') %>
+        </div>
+        <div class="col-md-10">
+            <%- include('components/main') %>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+      $('body').scrollspy({ target: '#navbar' })
 
-主页
-<%= user.mobile %>
+    })
+</script>
 <%- include('footer') %>

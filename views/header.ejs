@@ -6,9 +6,22 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= title %></title>
+    <style>
+        body { position: relative; }
+        .nav { list-style: none; padding: 0; }
+        .nav li > a { color: #767676; padding: 4px 20px; display: block; }
+        .nav li > a:hover { border-left: 1px solid #563d7c; color: #563d7c; }
+        .nav li.active > a { border-left: 2px solid #563d7c;  }
+        #navbar > .nav { font-size: 16px; }
+        #navbar > .nav.active > a { color: #563d7c; font-weight: bold; }
+        #navbar > .nav .nav { padding-left: 1em; font-size: .7em; }
+        p { height: 300px; }
+    </style>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
-<%- include('components/nav') %>
+<body data-spy="scroll" data-target="#navbar">
+<h1 class="text-center">
+    SECOND-CARS API设计
+</h1>

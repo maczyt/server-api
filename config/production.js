@@ -1,5 +1,5 @@
 module.exports = {
-  port: 80,
+  port: 8090,
   mongodb: 'mongodb://maczyt:maczyt@ds161210.mlab.com:61210/myblog',
   session: {
     secret: 'server-api',
