@@ -1,3 +1,31 @@
 {
-  
+  "user": {
+    "name": "用户",
+    "target": "#user",
+    "children": [
+      { "name": "登录", "target": "#user-signin", "container": [{"name": "打开登录页", "api": "GET /signin"}, {"name": "登录数据提交", "api": "POST /signin"}] },
+      { "name": "注册", "target": "#user-signup", "container": [{"name": "打开注册页", "api": "GET /signup"}, {"name": "注册数据提交", "api": "POST /signup"}] },
+      { "name": "登出", "target": "#user-signout", "container": [{"name": "退出登录", "api": "GET /signout"}] }
+    ]
+  },
+  "car": {
+    "name": "汽车",
+    "target": "#car",
+    "children": [
+      {
+        "name": "选车",
+        "target": "#car-select",
+        "container": [
+          { "name": "得到车辆信息", "api": "GET /car/select?fromDate&toDate" }
+        ]
+      },
+      {
+        "name": "租车",
+        "target": "#car-confirm",
+        "container": [
+          { "name": "租赁车辆", "api": "POST /car/confirm" }
+        ]
+      }
+    ]
+  }
 }

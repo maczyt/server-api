@@ -16,7 +16,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // session 中间件
-app.use(session({
+/*app.use(session({
   name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
   secret: config.session.secret,// 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
   resave: true,// 强制更新 session
@@ -33,7 +33,7 @@ app.use(session({
 app.use(function (req, res, next) {
   res.locals.user = req.session.user;
   next();
-});
+});*/
 
 // 路由
 routes(app);
