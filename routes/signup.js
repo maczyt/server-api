@@ -2,23 +2,21 @@ var express = require('express');
 var router = express.Router();
 var UserModel = require('../models/users');
 var checkNotLogin = require('../middleware/check').checkNotLogin;
-router.get('/', function (req, res, next) {
-  res.render('signup')
-});
 router.post('/', checkNotLogin, function (req, res, next) {
   var user = {
     mobile: req.body.mobile,
-    password: req.body.password
+    password: req.body.pw
   };
   UserModel.create(user)
     .then(function (result) {
       user = result;
       delete user.password;
+      if (user.password) user.password = '';
       req.session.user = user || {};
-      res.redirect('/')
+      res.status(200).send(user)
     })
     .catch(function (err) {
-      return res.redirect('/signup')
+      res.status(400).send(err);
     });
 });
 
