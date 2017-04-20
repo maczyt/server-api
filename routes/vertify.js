@@ -25,40 +25,32 @@ router.post('/', function (req, res) {
       if (r) {
         return res.send({status: true, msg: '该手机号已注册'})
       } else {
-        VertifyModel.findOneAndUpdate(mobile, vertify)
-          .then(r => {
-            if (!r) {
-              VertifyModel.create({mobile: mobile, vertify: vertify})
-                .then(r => {
-                  return res.send(r.vertify)
-                })
-                .catch(err => {
-                  return res.send(err);
-                });
-            } else return res.send(r.vertify);
-          });
+        client.execute('alibaba.aliqin.fc.sms.num.send', {
+          'extend' : '' ,
+          'sms_type' : 'normal' ,
+          'sms_free_sign_name' : '宇涛汽车租赁平台' ,
+          'sms_param' : `{name:'${vertify}'}` ,
+          'rec_num' :  mobile,
+          'sms_template_code' : "SMS_62430389"
+        }, function (error, response) {
+          if (!error) {
+            VertifyModel.findOneAndUpdate(mobile, vertify)
+              .then(r => {
+                if (!r) {
+                  VertifyModel.create({mobile: mobile, vertify: vertify})
+                    .then(r => {
+                      return res.send(r.vertify)
+                    })
+                    .catch(err => {
+                      return res.send(err);
+                    });
+                } else return res.send(r.vertify);
+              });
+          }
+          else res.status(500).send(error);
+        });
       }
     });
-
-
-  /*client.execute('alibaba.aliqin.fc.sms.num.send', {
-    'extend' : '' ,
-    'sms_type' : 'normal' ,
-    'sms_free_sign_name' : '宇涛汽车租赁平台' ,
-    'sms_param' : `{name:'${vertify}'}` ,
-    'rec_num' :  mobile,
-    'sms_template_code' : "SMS_62430389"
-  }, function (error, response) {
-    if (!error) {
-      VertifyModel.create({mobile: mobile, vertify: vertify})
-        .catch(err => {
-          res.send(err);
-        });
-      res.status(200).send('OK');
-    }
-    else res.status(500).send(error);
-  })*/
-
 });
 
 module.exports = router;
