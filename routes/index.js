@@ -5,4 +5,9 @@ module.exports = function (app) {
   });
   app.use('/vertify', require('./vertify'));
   app.use('/signup', require('./signup'));
+  app.use('/signin', require('./signin'));
+  app.use('/cars', require('./cars'));
+  app.get('/img/:imgSrc', function (req, res) {
+    res.sendFile('/img/', req.params.imgSrc)
+  })
 };

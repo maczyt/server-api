@@ -20,18 +20,26 @@ var client = new TopClient({
 router.post('/', function (req, res) {
   var mobile = req.body.mobile;
   var vertify = getVertify();
-  VertifyModel.findOneAndUpdate(mobile, vertify)
+  VertifyModel.findOne(mobile)
     .then(r => {
-      if (!r) {
-        VertifyModel.create({mobile: mobile, vertify: vertify})
+      if (r) {
+        return res.send({status: true, msg: '该手机号已注册'})
+      } else {
+        VertifyModel.findOneAndUpdate(mobile, vertify)
           .then(r => {
-            res.send(r.vertify)
-          })
-          .catch(err => {
-            res.send(err);
+            if (!r) {
+              VertifyModel.create({mobile: mobile, vertify: vertify})
+                .then(r => {
+                  return res.send(r.vertify)
+                })
+                .catch(err => {
+                  return res.send(err);
+                });
+            } else return res.send(r.vertify);
           });
-      } else res.send(r.vertify);
-    })
+      }
+    });
+
 
   /*client.execute('alibaba.aliqin.fc.sms.num.send', {
     'extend' : '' ,
